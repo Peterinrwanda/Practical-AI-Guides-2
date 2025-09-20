@@ -1,0 +1,5 @@
+{
+  "name": "Practical AI Guide & Toolkit",
+  "description": "An interactive webpage for Arise AI Agency that provides a curated list of practical AI guides, prompts, and use-cases. Users can filter resources by goal or profession to find the right tools for their tasks.",
+  "requestFramePermissions": []
+}
