@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Header } from './components/Header';
 import { FilterBar } from './components/FilterBar';
@@ -129,6 +130,20 @@ ${JSON.stringify(scenariosForPrompt)}
         <ResourceList scenarios={filteredScenarios} onCardClick={setSelectedScenario} isAiSearch={isAiSearchActive} />
         
         <CtaSection />
+
+        <footer className="text-center mt-20 pb-4">
+          <p className="text-sm text-brand-muted">
+            Developed by{' '}
+            <a
+              href="https://www.ariseaiagency.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-brand-primary hover:underline transition-colors"
+            >
+              www.ariseAIagency.com
+            </a>
+          </p>
+        </footer>
       </main>
       
       {selectedScenario && (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface AiSearchBarProps {
   onSearch: (query: string) => void;
@@ -6,8 +6,34 @@ interface AiSearchBarProps {
   error: string | null;
 }
 
+const loadingMessages = [
+  'Asking the AI...',
+  'Analyzing your goal...',
+  'Finding matching workflows...',
+  'Almost there...',
+];
+
 export const AiSearchBar: React.FC<AiSearchBarProps> = ({ onSearch, isLoading, error }) => {
   const [query, setQuery] = useState('');
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+
+  useEffect(() => {
+    let intervalId: number | undefined;
+    if (isLoading) {
+      intervalId = window.setInterval(() => {
+        setLoadingMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
+      }, 2000);
+    } else {
+      setLoadingMessageIndex(0);
+    }
+
+    return () => {
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
+    };
+  }, [isLoading]);
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +66,7 @@ export const AiSearchBar: React.FC<AiSearchBarProps> = ({ onSearch, isLoading, e
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              <span>Searching...</span>
+              <span>{loadingMessages[loadingMessageIndex]}</span>
             </>
           ) : '✨ Ask AI'}
         </button>
